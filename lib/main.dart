@@ -43,9 +43,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController aController = TextEditingController();
-  TextEditingController bController = TextEditingController();
-  TextEditingController cController = TextEditingController();
+  TextEditingController x0Controller = TextEditingController();
+  TextEditingController x1Controller = TextEditingController();
+  TextEditingController erroController = TextEditingController();
   String result = '';
 
   double secante(Function f, double x0, double x1, {double tol = 1e-5, int maxIter = 100}) {
@@ -71,16 +71,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return double.nan; // Não convergiu
   }
 
-  void get _calculateRoot {
-    final double a = double.parse(aController.text);
-    final double b = double.parse(bController.text);
-    final double c = double.parse(cController.text);
+  void _calculateRoot() {
+    final double x0 = double.parse(x0Controller.text);
+    final double x1 = double.parse(x1Controller.text);
+    final double tol = double.parse(erroController.text);
 
-    // Definindo a função quadrática f(x) = Ax^2 + Bx + C
-    double f(double x) => a * pow(x, 2) + b * x + c;
+    // Função seno f(x) = sin(x)
+    double f(double x) => sin(x);
 
-    // Usando aproximações iniciais
-    double raiz = secante(f, 0.0, 1.0);
+    // Chamando o método da secante com os valores fornecidos pelo usuário
+    double raiz = secante(f, x0, x1, tol: tol);
 
     setState(() {
       if (raiz.isNaN) {
@@ -106,9 +106,8 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               TextFormField(
-                controller: aController,
-                decoration: const InputDecoration(labelText: 'Valor de A'),
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                controller: x0Controller,
+                decoration: const InputDecoration(labelText: 'Valor inicial (x1)'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Insira um valor.';
@@ -118,9 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 15),
               TextFormField(
-                controller: bController,
-                decoration: const InputDecoration(labelText: 'Valor de B'),
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                controller: x1Controller,
+                decoration: const InputDecoration(labelText: 'Valor final (x2)'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Insira um valor.';
@@ -130,9 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 15),
               TextFormField(
-                controller: cController,
-                decoration: const InputDecoration(labelText: 'Valor de C'),
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                controller: erroController,
+                decoration: const InputDecoration(labelText: 'Tolerância'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Insira um valor.';
