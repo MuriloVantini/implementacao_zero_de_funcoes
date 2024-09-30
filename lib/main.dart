@@ -71,13 +71,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return double.nan; // Não convergiu
   }
 
-  void _calculateRoot() {
+  void get _calculateRoot {
+    // Verificando se os valores fornecidos estão apropriados
     final double x0 = double.parse(x0Controller.text);
     final double x1 = double.parse(x1Controller.text);
     final double tol = double.parse(erroController.text);
 
-    // Função seno f(x) = sin(x)
-    double f(double x) => sin(x);
+
+    // Função seno f(x) = x-2 * sin(x) - 1; (igual a do caderno)
+    double f(double x) => x-2 * sin(x) - 1;
 
     // Chamando o método da secante com os valores fornecidos pelo usuário
     double raiz = secante(f, x0, x1, tol: tol);
@@ -133,6 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Insira um valor.';
+                  }
+                  if (double.parse(value) <= 0) {
+                    return 'Tolerância deve ser maior que zero.';
                   }
                   return null;
                 },
