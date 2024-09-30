@@ -108,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
               TextFormField(
                 controller: aController,
                 decoration: const InputDecoration(labelText: 'Valor de A'),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Insira um valor.';
@@ -119,6 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
               TextFormField(
                 controller: bController,
                 decoration: const InputDecoration(labelText: 'Valor de B'),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Insira um valor.';
@@ -130,6 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
               TextFormField(
                 controller: cController,
                 decoration: const InputDecoration(labelText: 'Valor de C'),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Insira um valor.';
